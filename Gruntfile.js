@@ -5,10 +5,16 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         uglify: {
+          options: {
+            mangle:false
+          },
           build: {
-            src: ['app/lib/angular/*.js',
-                  'app/lib/vendor/*.js',
-                  'app/js/*.js'],
+            src:
+            [ 'app/js/routes.js',
+              'app/js/controllers.js',
+              'app/js/directives.js',
+              'app/js/filters.js',
+              'app/js/services.js'],
             dest: 'app/js/build/app.min.js'
           }
         },
@@ -22,22 +28,19 @@ module.exports = function(grunt) {
           }
         },
         watch: {
+          options: {
+            livereload: true
+          },
           scripts: {
-            files: ['app/lib/angular/*.js',
-                    'app/lib/vendor/*.js',
-                    'app/js/*.js'],
+            files: ['app/js/*.js', 'app/lib/vendors/jquery.min.js'],
             tasks: ['uglify'],
-            options: {
-              spawn: false,
-            }
           },
           css: {
             files: ['app/css/*.scss'],
             tasks: ['compass'],
-            options: {
-              spawn: false,
-              livereload: true
-            }
+          },
+          html: {
+            files: ['app/views/index.html', 'app/views/partials/*.html']
           }
         }
     });
@@ -48,6 +51,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
 //default tasks
-    grunt.registerTask('defualt', ['uglify', 'compass', 'watch']);
+    grunt.registerTask('default', ['uglify', 'compass', 'watch']);
 
 };

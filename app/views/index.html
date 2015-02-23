@@ -1,68 +1,32 @@
 <!doctype html>
-<html lang="en" ng-app="Poemy">
+<html lang="en" ng-app="Hello">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Poemy</title>
-  <link rel="stylesheet" href="app/css/app.css"/>
+  <title>Kenny Pirman</title>
+  <link rel="stylesheet" href="../../app/css/build/app.css"/>
   <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
 </head>
+
+<!-- Global Ctrl -->
 <body ng-controller="ApplicationController">
+
   <header class="home-header">
-    <i class="icon-logo"><h1>Poemy</h1></i>
-    <h2 ng-show="currentUser">{{currentUser.name}}</h2>
-    <p class="header-blurb">
-      Let's make a poem together, or fail hard at it...
-    </p>
-    <nav ng-controller="NavController">
-      <ul class="menu">
-        <li ng-class="{activePanel: isSelected(1)}">
-          <a ng-show="!currentUser" href="#/login" ng-click="selectPanel(1)">login</a>
-          <a ng-show="currentUser" ng-click="logout()" ng-click="selectPanel(1)">logout</a>
-        </li>
-        <li ng-class="{activePanel: isSelected(2)}"><a href="#/signup" ng-click="selectPanel(2)">signup</a></li>
-        <li ng-class="{activePanel: isSelected(3)}"><a href="#/users" ng-click="selectPanel(3)">users</a></li>
-        <li ng-class="{activePanel: isSelected(4)}"><a href="#/home" ng-click="selectPanel(4)">home</a></li>
-        <li ng-class="{activePanel: isSelected(5)}"><a href="#/poems" ng-click="selectPanel(5)">poems</a></li>
-        <li ng-if="currentUser" ng-class="{activePanel: isSelected(6)}"><a ng-href="#/user/{{currentUser.name}}" ng-click="selectPanel(6)">your profle</a></li>
-      </ul>
-    </nav>
-    <p class="bottom-info">+About</p>
   </header>
 
+  <!--Partials -->
   <div ng-view></div>
-  <script src="app/lib/vendors/jquery.min.js"></script>
-  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-  <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-  <script src="app/js/foundation.min.js"></script>
-  <!-- Notification plugin for JQuery -->
-  <script type="text/javascript" src="app/js/noty/jquery.noty.js"></script>
-  <script type="text/javascript" src="app/js/noty/themes/default.js"></script>
-  <script type="text/javascript" src="app/js/noty/layouts/top.js"></script>
-  <script type="text/javascript" src="app/js/noty/layouts/bottomRight.js"></script>
-  <script type="text/javascript" src="app/js/noty/themes/relax.js"></script>
-  <script src="app/lib/angular/angular.js"></script>
-  <script src="app/lib/vendors/angular-md5.js"></script>
-  <script src="app/lib/vendors/angular-disqus.js"></script>
-  <script src="app/lib/angular/angular-route.js"></script>
-  <script src="app/lib/angular/angular-messages.js"></script>
-  <script src="app/lib/angular/angular-animate.js"></script>
-  <script src="app/lib/angular/angular-cookies.js"></script>
-  <script src="app/js/routes.js"></script>
-  <script src="app/js/services.js"></script>
-  <script src="app/js/controllers.js"></script>
-  <script src="app/js/filters.js"></script>
-  <script src="app/js/directives.js"></script>
-  <!-- Disquss Integration -->
-  <script type="text/javascript">
-      var disqus_shortname = 'poemy'; // required: replace example with your forum shortname
-    /* * * DON'T EDIT BELOW THIS LINE * * */
-    (function () {
-      var s = document.createElement('script'); s.async = true;
-      s.type = 'text/javascript';
-      s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-      (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
-  </script>
-</body>
+
+  <!--Scripts -->
+  <script src="../../app/lib/vendors/jquery.min.js" type="text/javascript"></script>
+  <script src="../../app/js/foundation.min.js" type="text/javascript"></script>
+  <script src="../../app/lib/angular/angular.js" type="text/javascript"></script>
+  <script src="../../app/lib/angular/angular-route.js" type="text/javascript"></script>
+  <script src="../../app/js/build/app.min.js" type="text/javascript"></script>
+
+  <!--live reload-->
+  <script src="//localhost:35729/livereload.js"></script>
+
+  </body>
 </html>

@@ -1,6 +1,6 @@
 "use strict";
 
-Poemy.filter('interpolate', function (version) {
+Hello.filter('interpolate', function (version) {
     return function(text) {
        return String(text).replace(/\%VERSION\%/mg, version);
      }
