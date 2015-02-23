@@ -6,7 +6,8 @@ Hello.controller('ApplicationController', function () {
 });
 
 
-Hello.controller("HomeCtrl", function ($scope) {
+Hello.controller("HomeCtrl", function ($scope, viewFactory) {
   console.log('what is happening!');
   $scope.title = 'Whatever This is!';
+  viewFactory.init();
 });
