@@ -30,29 +30,71 @@ Hello.factory('viewFactory', function () {
   var viewFactory = {};
 
   viewFactory.init = function () {
-    var scene = new THREE.Scene();
-    var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-    var renderer = new THREE.WebGLRenderer();
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    $('#viewer').append( renderer.domElement );
-    var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-    var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-    var cube = new THREE.Mesh( geometry, material );
-    scene.add( cube );
+    var camera, scene, renderer;
 
-    camera.position.z = 5;
+    var dae
 
-    function render() {
-      requestAnimationFrame( render );
+    var loader = new THREE.ColladaLoader();
+    loader.options.convertUpAxis = true;
+    loader.load('/app/models/siheyuan.dae', function ( collada ) {
+      dae = collada.scene;
+      //var skin = collada.skins[0];
+      dae.scale.x = dae.scale.y = dae.scale.z = 25.0;
 
-      cube.rotation.x += 0.01;
-      cube.rotation.y += 0.005;
+      init();
+      animate();
 
-      renderer.render( scene, camera );
-    }
+      function init(){
+        scene = new THREE.Scene();
 
-    render();
+        camera = new THREE.OrthographicCamera(
+          window.innerWidth / -2,   // Left
+          window.innerWidth / 2,    // Right
+          window.innerHeight / 2,   // Top
+          window.innerHeight / -2,  // Bottom
+          -2000,            // Near clipping plane
+          1000 );           // Far clipping plane
+
+        camera.position.y = 0;
+
+        camera.rotation.x = 0 * (Math.PI/ 180);
+
+        scene.add(camera);
+
+        var directionalLight = new THREE.DirectionalLight(0xeeeeee , 2);
+        directionalLight.position.x = 0;
+        directionalLight.position.y = 1;
+        directionalLight.position.z = 0;
+        //scene.add( directionalLight );
+
+        var light = new THREE.HemisphereLight(0x16e0ff, 0x47ff16);
+        //scene.add( light );
+
+        var directionalLight2 = new THREE.DirectionalLight(0xeeeeee, 1);
+          // A different way to specify the position:
+        directionalLight2.position.set(-1, 0, 1);
+        scene.add( directionalLight2 );
+
+        scene.add(dae);
+
+        renderer = new THREE.WebGLRenderer({alpha: true});
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        $('#viewer').append(renderer.domElement);
+      }
+
+      function animate() {
+        requestAnimationFrame( animate );
+        render();
+      }
+
+      function render() {
+        //update scene
+        camera.rotation.y += 0.005;
+        renderer.render(scene, camera);
+      }
+
+    })
   }
 
   return viewFactory;
