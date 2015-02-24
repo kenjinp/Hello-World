@@ -4,18 +4,34 @@ module.exports = function(grunt) {
 
         pkg: grunt.file.readJSON('package.json'),
 
+//        uglify: {
+//          options: {
+//            mangle:false
+//          },
+//          build: {
+//            src:
+//            [ 'app/js/routes.js',
+//              'app/js/controllers.js',
+//              'app/js/directives.js',
+//              'app/js/filters.js',
+//              'app/js/services.js'],
+//            dest: 'app/js/build/app.min.js'
+//          }
+//        },
+        useminPrepare: {
+          html: 'app/views/index.html',
+          options: {
+            root: 'app',
+            dest: 'dist'
+          }
+        },
+        usemin: {
+          html: ['dist/index.html']
+        },
         uglify: {
           options: {
-            mangle:false
-          },
-          build: {
-            src:
-            [ 'app/js/routes.js',
-              'app/js/controllers.js',
-              'app/js/directives.js',
-              'app/js/filters.js',
-              'app/js/services.js'],
-            dest: 'app/js/build/app.min.js'
+              report: 'min',
+              mangle: false
           }
         },
         compass: {
@@ -46,11 +62,14 @@ module.exports = function(grunt) {
     });
 
 //load
+    grunt.loadNpmTasks('grunt-usemin');
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-compass');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
-//default tasks
-    grunt.registerTask('default', ['uglify', 'compass', 'watch']);
-
+//default task - development, run 'grunt'
+    grunt.registerTask('default', ['compass', 'watch']);
+//production task, run 'grunt prod'
+    grunt.registerTask('prod', ['useminPrepare', 'concat', 'uglify', 'usemin']);
 };
