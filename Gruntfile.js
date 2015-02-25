@@ -26,7 +26,18 @@ module.exports = function(grunt) {
           }
         },
         usemin: {
-          html: ['dist/index.html']
+          html: 'app/views/index.html',
+          options: {
+            root: 'app',
+            dest: 'dist',
+            blockReplacements: {
+                js: function (block) {
+                    grunt.log.debug(JSON.stringify(block.dest));
+                    console.log(JSON.stringify(block.dest));
+                    return '<script src="../../dist/'+block.dest+'"></script>';
+                }
+            }
+          }
         },
         uglify: {
           options: {
