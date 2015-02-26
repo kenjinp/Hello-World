@@ -37,10 +37,10 @@ Hello.factory('viewFactory', function () {
 
     var loader = new THREE.ColladaLoader();
     loader.options.convertUpAxis = true;
-    loader.load('/app/models/siheyuan.dae', function ( collada ) {
+    loader.load('/app/models/siheyuan2.dae', function ( collada ) {
       dae = collada.scene;
       //var skin = collada.skins[0];
-      dae.scale.x = dae.scale.y = dae.scale.z = 25.0;
+      dae.scale.x = dae.scale.y = dae.scale.z = 60.0;
 
       init();
       animate();
@@ -56,30 +56,45 @@ Hello.factory('viewFactory', function () {
           -2000,            // Near clipping plane
           1000 );           // Far clipping plane
 
-        camera.position.y = 0;
+        camera.position.y = 200;
 
-        camera.rotation.x = 0 * (Math.PI/ 180);
+        camera.position.x = 200;
+
+        camera.rotation.x = 0 * (Math.PI/ 500);
 
         scene.add(camera);
 
-        var directionalLight = new THREE.DirectionalLight(0xeeeeee , 2);
+        var directionalLight = new THREE.DirectionalLight(0xffffff , 2);
         directionalLight.position.x = 0;
         directionalLight.position.y = 1;
         directionalLight.position.z = 0;
         //scene.add( directionalLight );
 
-        var light = new THREE.HemisphereLight(0x16e0ff, 0x47ff16);
+        var light = new THREE.HemisphereLight(0x16e0ff, 0x47ff16, 1);
         //scene.add( light );
 
-        var directionalLight2 = new THREE.DirectionalLight(0xeeeeee, 1);
+        var directionalLight2 = new THREE.DirectionalLight(0xffffff, 2);
           // A different way to specify the position:
-        directionalLight2.position.set(-1, 0, 1);
+        directionalLight2.position.set(100, 0, 10);
         scene.add( directionalLight2 );
+
+        var pointLight = new THREE.PointLight(0xffffff, 2);
+        pointLight.position.set(0, 300, 200);
+
+        scene.add(pointLight);
+
+
+        var pointLight2 = new THREE.PointLight(0xffffff, 2);
+        pointLight2.position.set(0, -300, -200);
+
+        scene.add(pointLight2);
 
         scene.add(dae);
 
+        dae.rotation.y += 140;
+
         renderer = new THREE.WebGLRenderer({alpha: true});
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setSize($('#viewer').width(),$('#viewer').height());
         $('#viewer').append(renderer.domElement);
       }
 
@@ -90,7 +105,8 @@ Hello.factory('viewFactory', function () {
 
       function render() {
         //update scene
-        camera.rotation.y += 0.005;
+        //camera.rotation.y += 0.0005;
+        dae.rotation.y += 0.005;
         renderer.render(scene, camera);
       }
 
