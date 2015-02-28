@@ -10,6 +10,13 @@ Hello.config(['$routeProvider', function($routeProvider) {
     		controller: 'HomeCtrl',
     	}
     );
+    $routeProvider.when(
+      '/tech',
+      {
+        templateUrl: 'app/views/partials/tech.html',
+        controller: 'TechCtrl',
+      }
+    );
     $routeProvider.otherwise(
         {
             redirectTo: '/home'

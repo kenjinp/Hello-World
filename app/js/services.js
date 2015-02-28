@@ -26,6 +26,72 @@ Hello.service("UtilSrvc", function () {
     }
 });
 
+Hello.factory('gridFactory', function () {
+  var gridFactory = {};
+  var boxArr = [];
+
+  gridFactory.init = function () {
+    $('.box').each(function (i) {
+      if (i == $('.box').length) return
+      var el = $(this)
+      if (el.hasClass("invis")) {
+        el.remove()
+      }
+      var randomNum = Math.ceil(Math.random()*5);
+      if (randomNum === 1 && $('.box.invis').length <= 2) {
+        el.after('<div class="box invis"></div>');
+      }
+    });
+    var viewportHeight = $(window).height();
+    var boxHolderHeight = viewportHeight - 100;
+    var boxHolderWidth = $('.box-holder').width() - 100;
+    $('.box-holder').height(boxHolderHeight);
+    var boxHeight = boxHolderHeight / 8;
+    var boxWidth = boxHolderWidth / 3;
+    $('.box').height(boxHeight);
+    $('.box').width(boxWidth);
+    $('.box.wide').width(boxWidth * 2);
+    $('.box.big').height(boxHeight * 3);
+    $('.box.big').width(boxWidth * 2);
+  }
+
+  gridFactory.show = function () {
+    var speed = 200,
+        delay = 100;
+
+    $('.box').each(function (i) {
+      var el = $(this)
+      if (el.hasClass("invis")) return
+      setTimeout( function() {
+        el.css('-webkit-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.css('-moz-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.css('transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.removeClass('hide');
+        el.addClass('shown');
+      }, 100 );
+    });
+  }
+
+  gridFactory.hide = function (notThisString) {
+    var speed = 200,
+        delay = 100;
+    $($('.box').get().reverse()).each(function (i) {
+      var el = $(this)
+      //if (el.attr('id') == notThisString || el.attr('id') == notThisString) return
+      if (el.hasClass("invis")) return
+      setTimeout( function() {
+        el.css('-webkit-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.css('-moz-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.css('transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        el.removeClass('shown');
+        el.addClass('hide');
+      }, 100 );
+    });
+  }
+
+  return gridFactory;
+});
+
 Hello.factory('viewFactory', function () {
   var viewFactory = {};
 
@@ -43,22 +109,24 @@ Hello.factory('viewFactory', function () {
       dae.scale.x = dae.scale.y = dae.scale.z = 60.0;
 
       init();
-      animate();
+      render();
 
       function init(){
         scene = new THREE.Scene();
 
-        camera = new THREE.OrthographicCamera(
-          window.innerWidth / -2,   // Left
-          window.innerWidth / 2,    // Right
-          window.innerHeight / 2,   // Top
-          window.innerHeight / -2,  // Bottom
-          -2000,            // Near clipping plane
-          1000 );           // Far clipping plane
+        scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
 
-        camera.position.y = 200;
+        //camera = new THREE.OrthographicCamera(
+        //  window.innerWidth / -2,   // Left
+        //  window.innerWidth / 2,    // Right
+        //  window.innerHeight / 2,   // Top
+        //  window.innerHeight / -2,  // Bottom
+        //  -2000,            // Near clipping plane
+        //  1000 );           // Far clipping plane
 
-        camera.position.x = 200;
+        camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
+
+        camera.position.y = 500;
 
         camera.rotation.x = 0 * (Math.PI/ 500);
 
@@ -89,24 +157,91 @@ Hello.factory('viewFactory', function () {
 
         scene.add(pointLight2);
 
-        scene.add(dae);
+        //scene.add(dae);
 
         dae.rotation.y += 140;
 
         renderer = new THREE.WebGLRenderer({alpha: true});
-        renderer.setSize($('#viewer').width(),$('#viewer').height());
+        //renderer.setSize($('#viewer').width(),$('#viewer').height());
         $('#viewer').append(renderer.domElement);
+
+        //triangles
+        var geometry = new THREE.CylinderGeometry( 0, 10, 30, 4, 1 );
+        var material =  new THREE.MeshLambertMaterial( { color:0xFF5E5E, shading: THREE.FlatShading } );
+
+        for ( var i = 0; i < 500; i ++ ) {
+
+          var mesh = new THREE.Mesh( geometry, material );
+          mesh.position.x = ( Math.random() - 0.5 ) * 2000;
+          mesh.position.y = ( Math.random() - 0.5 ) * 2000;
+          mesh.position.z = ( Math.random() - 0.5 ) * 2000;
+          mesh.updateMatrix();
+          mesh.matrixAutoUpdate = false;
+          scene.add( mesh );
+
+        }
+        //more lights
+        // lights
+
+        light = new THREE.DirectionalLight( 0xffffff );
+        light.position.set( 1, 1, 1 );
+        scene.add( light );
+
+        light = new THREE.DirectionalLight( 0x002288 );
+        light.position.set( -1, -1, -1 );
+        scene.add( light );
+
+        light = new THREE.AmbientLight( 0x222222 );
+        scene.add( light );
+
+        window.addEventListener( 'resize', onWindowResize, false );
+        // renderer
+
+        renderer.setPixelRatio( window.devicePixelRatio );
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        animate();
+      }
+
+      function mouseMove() {
+        $( "canvas" ).mousemove(function( event ) {
+          var tempX = event.pageX,
+              tempY = event.pageY;
+          //var theta = - ( ( tempX) * 0.5 ) + tempX;
+          //var phi = ( ( tempY ) * 0.5 ) + tempY;
+
+          //phi = Math.min( 180, Math.max( 0, phi ) );
+
+          //camera.position.x = radious * Math.sin( theta * Math.PI / 360 )
+          //                      * Math.cos( phi * Math.PI / 360 );
+          //camera.position.y = radious * Math.sin( phi * Math.PI / 360 );
+          //camera.position.z = radious * Math.cos( theta * Math.PI / 360 )
+          //                      * Math.cos( phi * Math.PI / 360 );
+          camera.rotation.x += tempX;
+        });
       }
 
       function animate() {
         requestAnimationFrame( animate );
-        render();
       }
+
+      function onWindowResize() {
+
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+
+        render();
+
+      }
+
 
       function render() {
         //update scene
         //camera.rotation.y += 0.0005;
-        dae.rotation.y += 0.005;
+        //dae.rotation.y += 0.005;
+        mouseMove();
         renderer.render(scene, camera);
       }
 

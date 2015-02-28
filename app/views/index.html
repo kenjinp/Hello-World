@@ -16,9 +16,22 @@
   </header>
 
   <!--Partials -->
-  <div ng-view></div>
+  <div class="box-holder">
+    <a href="#/home">
+      <div id="home" class="box hide">
+      <span>
+      <h2>Kenny</h2>
+      </span>
+      </div>
+    </a>
+    <div ng-view>
+    </div>
+  </div>
 
-  <div id="viewer"></div>
+  <div id="viewer">
+  </div>
+
+  <div id="about"><p>+about</p></div>
 
   <!-- build:js js/build/app.min.js -->
   <script src="/app/lib/vendors/three.js" type="text/javascript"></script>

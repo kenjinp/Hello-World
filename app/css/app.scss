@@ -1,4 +1,5 @@
 /* Main app css */
+
 body {
   font-family: 'Merriweather Sans', sans-serif;
   color: #fff;
@@ -14,24 +15,86 @@ canvas {
   height:100%;
 }
 
-.hello {
-  background: #FF5E5E;
+div#about {
+  color: #FF5E5E;
+  position:fixed;
+  bottom:50px;
+  right:50px;
+}
+
+a {
+  color:white;
+}
+.box-holder {
   position:relative;
-  padding:100px;
-  margin:50px;
-  height:auto;
   width:50%;
+  display:block;
+  position:relative;
+  margin:50px;
   text-align:center;
   color:white;
   float:left;
   z-index:2;
+  .box {
+    background: #FF5E5E;
+    //padding:50px;
+    opacity: 1;
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05);
+    float:left;
+    position:relative;
+    overflow:hidden;
+    -webkit-font-smoothing: antialiased;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+    font-weight: 700;
+    span {
+      position:absolute;
+      bottom:0px;
+      left:0px;
+      margin:10px;
+      font-size:23px;
+      h2 {
+        margin:0px;
+        font-weight:300;
+        font-size:2em;
+      }
+    }
+  }
+  .box:hover {
+    box-shadow: inset 0 0 0 10px rgba(255,255,255,0.1);
+    //background: #f25a5a;
+    //-webkit-transition: hover 100ms 100ms;
+    //-moz-transition: hover 100ms 100ms;
+    //transition: hover 100ms 100ms;
+  }
+  .box.shown {
+
+    transition-timing-function: ease-out;
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    z-index: 999;
+
+  }
+  .box.hide {
+    transition-timing-function: ease-out;
+    -webkit-transform: scale(.5);
+    -moz-transform: scale(.5);
+    transform: scale(.5);
+    opacity: 0;
+    z-index: 1;
+  }
+  .box.invis {
+    opacity: 0;
+  }
 }
 
 #viewer {
-  width:50%;
-  height:600px;
-  position:relative;
-  float:left;
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0px;
+  left:0px;
   z-index:1;
 }
 
@@ -52,7 +115,8 @@ canvas {
 }
 
 #QR{
-  margin: auto;
+  margin: 10px auto;
+  margin-top:50px;
   background: url(../../img/QR.png);
   width: 150px;
   height: 150px;
