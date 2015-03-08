@@ -1,0 +1,1 @@
+@keyframes bye{from{transform:scale(1);opacity:1}to{transform:scale(0.5);opacity:0}}@keyframes hello{from{transform:scale(0.5);opacity:0}to{transform:scale(1);opacity:1}}.page{-webkit-transition:all 1s;margin:0px !important;padding:0px;width:100%}.ng-enter{opacity:0}.ng-enter-active{opacity:1}.ng-leave{opacity:1}.ng-leave-active{opacity:0}

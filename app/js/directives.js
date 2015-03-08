@@ -14,8 +14,19 @@ Hello.directive('inputtext', function ($timeout) {
     }
 });
 
-Hello.directive('version', function(version) {
-  return function(scope, elm, attrs) {
-    elm.text(version);
-  };
+Hello.directive('tile', function() {
+  return {
+    scope: {
+      type:'=type'
+    },
+    transclude: true,
+    template:
+    '<div class="box hide">'+
+      '<span ng-transclude>'+
+      '</span>'+
+    '</div>',
+    link:function(scope, el) {
+      el.append(scope.type)
+    }
+  }
 });

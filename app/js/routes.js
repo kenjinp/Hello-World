@@ -2,9 +2,13 @@
 
 var Hello = angular.module('Hello', ['ngRoute']);
 
-Hello.config(['$routeProvider', function($routeProvider) {
+Hello.config(['$routeProvider', '$locationProvider',
+ function(
+   $routeProvider,
+  $locationProvider) {
+
     $routeProvider.when(
-    	'/home',
+    	'/',
     	{
     		templateUrl: 'app/views/partials/home.html',
     		controller: 'HomeCtrl',
@@ -17,8 +21,21 @@ Hello.config(['$routeProvider', function($routeProvider) {
         controller: 'TechCtrl',
       }
     );
+    $routeProvider.when(
+      '/about',
+      {
+        templateUrl: 'app/views/partials/about.html',
+        controller: 'AboutCtrl',
+      }
+    );
     $routeProvider.otherwise(
         {
-            redirectTo: '/home'
+            redirectTo: '/'
         });
+
+    //$locationProvider.html5Mode(true);
 }]);
+
+Hello.run( function($rootScope, $location) {
+
+});

@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="utf-8">
+  <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Kenny Pirman</title>
   <link rel="stylesheet" href="../../app/css/build/app.css"/>
@@ -17,25 +18,28 @@
 
   <!--Partials -->
   <div class="box-holder">
-    <a href="#/home">
-      <div id="home" class="box hide">
+    <a href="#/home" ng-click="show()" id="home" class="box">
       <span>
-      <h2>Something</h2>
+        <h2>Kenjin</h2>
       </span>
-      </div>
     </a>
-    <div ng-view>
-    </div>
+
+  <!--injected vies-->
+    <div class="page {{ pageClass }}" ng-view></div>
+
   </div>
 
   <div id="viewer">
   </div>
 
-  <a href="" class="tooltip" id="about"><p>+about</p>
-    <!--<span class="tooltip-content">
-      <span class="tooltip-front"><img src="" alt="This is me, Kenny Pirman"></span>
-      <span class="tooltip-back">Hi, this is my personal website. It's built using AngularJS. You can find the code <a href="">here</a></span>
-    </span>-->
+  <a href="#/about" class="tooltip" id="about"><p>+about</p>
+    <!--
+    <span class="tooltip-content">
+      <h3>Hello There!</h3>
+      <p>This is where I put my things, and where you can learn more about me.</p>
+      <p>This website was constructed using <strong>AngularJS</strong>. You can find the code as well as the short list of technologies used here at the github section.</p>
+    </span>
+  -->
   </a>
 
   <!-- build:js js/build/app.min.js -->

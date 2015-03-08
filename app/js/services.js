@@ -29,8 +29,12 @@ Hello.service("UtilSrvc", function () {
 Hello.factory('gridFactory', function () {
   var gridFactory = {};
   var boxArr = [];
+  var gBoxHeight = 0;
+  var gBoxWidth = 0;
+  var gBoxHolderHeight = 0;
 
   gridFactory.init = function () {
+
     $('.box').each(function (i) {
       if (i == $('.box').length) return
       var el = $(this)
@@ -44,16 +48,23 @@ Hello.factory('gridFactory', function () {
     });
     var viewportHeight = $(window).height();
     var boxHolderHeight = viewportHeight - 100;
+    gBoxHolderHeight = boxHolderHeight;
     var boxHolderWidth = $('.box-holder').width() - 100;
     $('.box-holder').height(boxHolderHeight);
     var boxHeight = boxHolderHeight / 8;
+    gBoxHeight = boxHeight;
     var boxWidth = boxHolderWidth / 3;
+    gBoxWidth = boxWidth;
     $('.box').height(boxHeight);
     $('.box').width(boxWidth);
     $('.box.wide').width(boxWidth * 2);
     $('.box.big').height(boxHeight * 3);
     $('.box.big').width(boxWidth * 2);
-    mouseGridShift();
+    $('.page').width(boxHolderWidth);
+    $('.page').height(boxHeight * 4);
+    if ($(window).width() > 767){
+      mouseGridShift();
+    }
   }
 
   gridFactory.show = function () {
@@ -64,30 +75,56 @@ Hello.factory('gridFactory', function () {
       var el = $(this)
       if (el.hasClass("invis")) return
       setTimeout( function() {
-        el.css('-webkit-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
-        el.css('-moz-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
-        el.css('transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        var speedString = speed + 'ms ' + ( i * delay ) + 'ms';
+        var cssString = 'transform ' + speedString +', opacity '+ speedString;
+        el.css('-webkit-transition', cssString);
+        el.css('-moz-transition', cssString);
+        el.css('transition', cssString);
         el.removeClass('hide');
         el.addClass('shown');
       }, 100 );
     });
   }
 
-  gridFactory.hide = function (notThisString) {
+  gridFactory.hide = function (target) {
     var speed = 200,
         delay = 100;
     $($('.box').get().reverse()).each(function (i) {
       var el = $(this)
-      //if (el.attr('id') == notThisString || el.attr('id') == notThisString) return
-      if (el.hasClass("invis")) return
+      if (el.attr('id') == target) {
+        //setTimeout(function() {
+        //  gridFactory.embiggen(target);
+        //}, speed + ($('.box').length * delay));
+        //return true;
+      }
+      if (el.attr('id') == 'home') return true;
+      //if (el.hasClass("invis")) return true;
       setTimeout( function() {
-        el.css('-webkit-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
-        el.css('-moz-transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
-        el.css('transition', 'all ' + speed + 'ms ' + ( i * delay ) + 'ms');
+        var speedString = speed + 'ms ' + ( i * delay ) + 'ms';
+        var cssString = 'transform ' + speedString +', opacity '+ speedString;
+        el.css('-webkit-transition', cssString);
+        el.css('-moz-transition', cssString);
+        el.css('transition', cssString);
         el.removeClass('shown');
         el.addClass('hide');
+        setTimeout(function() {
+          //el.remove();
+        }, speed + (i * delay));
       }, 100 );
     });
+  }
+
+  gridFactory.embiggen = function (s) {
+    var el = $('#'+s);
+    el.addClass('embiggened');
+    el.animate({
+      left:"0px",
+      top:gBoxHeight+"px",
+      width:gBoxWidth*3+"px",
+      height:(gBoxHolderHeight - gBoxHeight)+"px"
+    }, 200, function() {
+    });
+
   }
 
   function mouseGridShift() {
