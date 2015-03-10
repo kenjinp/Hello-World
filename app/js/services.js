@@ -58,8 +58,8 @@ Hello.factory('gridFactory', function () {
     $('.box').height(boxHeight);
     $('.box').width(boxWidth);
     $('.box.wide').width(boxWidth * 2);
-    $('.box.big').height(boxHeight * 3);
-    $('.box.big').width(boxWidth * 2);
+    $('.box.big').height((boxHeight * 3));
+    $('.box.big').width(boxWidth);
     $('.page').width(boxHolderWidth);
     $('.page').height(boxHeight * 4);
     if ($(window).width() > 767){

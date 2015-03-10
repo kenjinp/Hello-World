@@ -38,6 +38,8 @@ Hello.controller("HomeCtrl", function (
     gridFactory.hide('hide');
   }
 
+  $scope.quote = '"The ultimate purpose of Daedric Lords is to instruct and improve the generally deplorable character of mortals." ―Anonymous Hermaeus Mora Follower';
+
 });
 
 Hello.controller("TechCtrl", function (
@@ -49,6 +51,7 @@ Hello.controller("TechCtrl", function (
 
 
   $scope.title = 'Whatever This is!';
+  
   $( window ).resize(function() {
     gridFactory.init();
   });
@@ -74,6 +77,33 @@ Hello.controller("AboutCtrl", function (
 
 
   $scope.title = 'Whatever This is!';
+
+  $( window ).resize(function() {
+    gridFactory.init();
+  });
+  gridFactory.init();
+  gridFactory.show();
+
+  $scope.show = function() {
+    gridFactory.show();
+  }
+
+  $scope.hide = function() {
+    gridFactory.hide();
+  }
+
+});
+
+Hello.controller("ProjectsCtrl", function (
+  $scope,
+  gridFactory,
+  viewFactory) {
+
+  $scope.pageClass = 'page-projects';
+
+
+  $scope.title = 'Whatever This is!';
+
   $( window ).resize(function() {
     gridFactory.init();
   });

@@ -28,6 +28,13 @@ Hello.config(['$routeProvider', '$locationProvider',
         controller: 'AboutCtrl',
       }
     );
+    $routeProvider.when(
+      '/projects',
+      {
+        templateUrl: 'app/views/partials/projects.html',
+        controller: 'ProjectsCtrl',
+      }
+    );
     $routeProvider.otherwise(
         {
             redirectTo: '/'

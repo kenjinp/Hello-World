@@ -118,6 +118,17 @@ a{
   z-index:1;
 }
 
+#QR {
+  margin: 10px auto;
+  margin-top:50px;
+  background: url(../../img/QR.png);
+  width: 150px;
+  height: 150px;
+  a{
+    opacity:0;
+  }
+}
+
 //media queries
 @media (max-width: 480px) {  }                         // Landscape phones and down
 @media (max-width: 767px) {
