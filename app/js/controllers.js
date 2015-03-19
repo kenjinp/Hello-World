@@ -51,7 +51,7 @@ Hello.controller("TechCtrl", function (
 
 
   $scope.title = 'Whatever This is!';
-  
+
   $( window ).resize(function() {
     gridFactory.init();
   });
