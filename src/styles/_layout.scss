@@ -1,11 +1,9 @@
-.nav {
-  bottom: 0;
-  position: fixed;
+#content {
+  position: relative;
 }
 
-.grid {
-  width: 600px;
-  height: 100%;
-  margin: 50px 50px;
-  position: relative;
+.nav {
+  width: 100%;
+  bottom: 0;
+  position: fixed;
 }

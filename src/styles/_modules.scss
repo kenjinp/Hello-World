@@ -1,40 +1,118 @@
-.grid-component {
-  background-color: $grid-bg;
-  box-shadow: 0 8px 6px -6px $bg-shadow;
-  margin: 5px;
-  padding: 20px;
-  float: left;
-  font-size: 20px;
-//  transition: opacity .3s ease;
-//  opacity: 0;
-  height: 100px;
-  z-index: 1;
+//holds 3d space for the main Grid content
+.container {
+  width: 600px;
+  height: 700px;
+  perspective: 600px;
+}
 
-  &.shown {
-    opacity: 1;
+//card modules
+.card {
+  height: 100%;
+  position: absolute;
+  transition: transform $animTime;
+  transform-style: preserve-3d;
+  width: 100%;
+  margin: 50px 50px;
+
+  &.flipped {
+      transform: rotateY(180deg);
   }
 
-  //sizes
-  &.small {
-    width: calc(570px/3);
+  .side {
+    backface-visibility: hidden;
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
   }
 
-  &.medium {
-    width: calc((570px/3) * 2);
+  .front {
+    background: $white;
   }
 
-  &.large {
-    width: calc(580px);
-  }
+  .back {
+    background: $white;
+    transform: rotateY(180deg);
 
-  &:hover {
-    border: 2px solid white;
-    box-shadow: 0 4px 6px -6px $bg-shadow;
-    cursor: pointer;
+    .return {
+      color: $grid-bg;
+      position: absolute;
+      left: 20px;
+      bottom: 20px;
+    }
   }
+}
 
-  h1 {
+//grid modules
+.grid {
+
+  .grid-component {
+    background-color: $grid-bg;
+    box-shadow: 0 8px 6px -6px $bg-shadow;
+    margin: 5px;
+    padding: 20px;
+    position: relative;
+    float: left;
+    font-size: 20px;
+    text-shadow: 0px 1px 1px $offwhite;
+  //  transition: opacity .3s ease;
+  //  opacity: 0;
+    height: 100px;
+    z-index: 1;
+
+    &.shown {
+      opacity: 1;
+    }
+
+    //sizes
+    &.small {
+      width: calc(570px/3);
+    }
+
+    &.medium {
+      width: calc((570px/3) * 2);
+    }
+
+    &.large {
+      width: calc(580px);
+    }
+
+    &.full {
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+    }
+
+    &:hover {
+      border: 2px solid $background;
+      box-shadow: 0 4px 8px -6px $bg-shadow;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 0;
+    }
+  }
+}
+
+.quote {
+
+  p {
     margin: 0;
+    text-transform: italic;
+    //white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  span {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    &:before {
+      content: '- ';
+    }
   }
 }
 
@@ -47,7 +125,7 @@
   width: 100%;
   opacity: 0;
   z-index: -1;
-  transition: opacity .3s ease;
+  transition: all .3s ease;
 
   &.shown {
     left: 0px;
@@ -125,4 +203,23 @@
 
 .dova {
   font-family: dovah;
+}
+
+.bottom {
+  color: $darkgray;
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin: 20px auto;
+}
+
+.about {
+  position: absolute;
+  color: $grid-bg;
+  left: 20px;
+  bottom: 20px;
+}
+
+.modal {
+  display: none;
 }

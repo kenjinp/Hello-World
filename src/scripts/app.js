@@ -53,9 +53,7 @@ var Quote = React.createClass({
 var standardComponent = React.createClass({
   handleClick: function() {
     var el = $('.' + this.props.title);
-    var ex = $('.expanded');
-    var position = el.offset();
-    ex.offset({top: Math.floor(position.top), left: Math.floor(position.left)});
+    el.addClass('full');
   },
   componentDidMount: function() {
   },
@@ -75,11 +73,11 @@ var Nav = React.createClass({
   render: function() {
     return (
       <div className="nav">
+        <span className="bottom">press space to reload grid</span>
         <div className="full modal">
           <div className="inner modal">
             <p>Things blah blah blah blah blah</p>
           </div>
-          <span>+ About</span>
         </div>
       </div>
     );
@@ -87,16 +85,29 @@ var Nav = React.createClass({
 });
 
 var Grid = React.createClass({
-  mouseGridShift: function() {
+  handleClick: function() {
+    var card = $('.card');
+
+    card.addClass('flipped');
+    this.mouseGridShift($('.back'), true);
+  },
+  goBack: function() {
+    $('.card').removeClass('flipped');
+  },
+  mouseGridShift: function(side, reverse) {
     $('html').mousemove(function(e) {
       var tempX = e.pageX,
           viewportWidth = $(window).width(),
-          axis = $('.grid').width() / 2,
+          axis = side.width() / 2,
           graphBoundryX = viewportWidth - axis,
           limitY = 26,
           x = (tempX - axis),
           y = (limitY * Math.sin(( 1 / (graphBoundryX * 0.666) * x)));
-      $('.grid').css({'transform': 'perspective(600px) rotateY( '+ y +'deg)'});
+      if (reverse === true) {
+        console.log(y);
+        y = y + 180;
+      }
+      side.css({'transform': 'rotateY( '+ y +'deg)'});
     });
   },
   getInitialState: function() {
@@ -105,7 +116,7 @@ var Grid = React.createClass({
     };
   },
   componentDidMount: function() {
-    this.mouseGridShift();
+    this.mouseGridShift($('.front'), false);
     $(window).keypress(function(e) {
       if (e.keyCode === 0 || e.keyCode === 32) {
         if (this.isMounted()) {
@@ -124,9 +135,16 @@ var Grid = React.createClass({
       );
     });
     return (
-      <div className="grid">
-        <div className="expanded"></div>
-        { gridComponents }
+      <div className="container">
+        <div className="card">
+          <div className="back side">
+            <span className="return" onClick={ this.goBack }>back</span>
+          </div>
+          <div className="front side grid">
+            { gridComponents }
+            <span className="about" onClick={ this.handleClick }>+ About</span>
+          </div>
+        </div>
       </div>
     );
   }
