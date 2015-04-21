@@ -107,11 +107,11 @@ gulp.task('scripts_dev', function() {
 //PROD
 //JS concat, strip debugging then minify
 gulp.task('scripts_prod', function() {
-  var scriptSrc = ['./src/scripts/app.js'],
+  var scriptSrc = ['./dis/scripts/app.js'],
       scriptDst = './dis/scripts/';
   gulp.src(scriptSrc)
-    .pipe(browserify())
-    .pipe(concat('app.js'))
+    //.pipe(browserify())
+    //.pipe(concat('app.js'))
     .pipe(stripDebug())
     .pipe(uglify())
     .pipe(gulp.dest(scriptDst));
