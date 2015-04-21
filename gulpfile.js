@@ -146,11 +146,6 @@ gulp.task('default', ['connect','imagemin', 'htmlpage', 'buildScript', 'styles']
 });
 
 //default gulp task
-gulp.task('prod', ['imagemin', 'htmlpage', 'buildScript', 'styles'], function() {
-  //watch for HTMl changes
-  gulp.watch('./src/*.html', ['htmlpage']);
-  //watch for JS changes
-  gulp.watch('./src/scripts/*.js' ['jshint', 'scripts_prod']);
-  //watch for CSS changes
-  gulp.watch('./src/styles/*.scss', ['styles']);
+gulp.task('prod', ['scripts_prod'], function() {
+
 });
