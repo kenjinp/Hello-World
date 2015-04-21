@@ -53,7 +53,7 @@ var Quote = React.createClass({
 var standardComponent = React.createClass({
   handleClick: function() {
     var el = $('.' + this.props.title);
-    el.addClass('full');
+    //el.addClass('full');
   },
   componentDidMount: function() {
   },
