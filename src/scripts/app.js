@@ -1,8 +1,7 @@
 // dependencies
 global.jQuery = global.$ = require('jquery');
 
-var React = require('react/addons'),
-    ReactCSSTransitionGroup = React.addons.CSSTransitionGroup,
+var React = require('react'),
     imagesLoaded = require('imagesloaded');
 
 function shuffle(o){ //v1.0
