@@ -1,10 +1,61 @@
-.grid {
-  width:50%;
-}
 .grid-component {
   background-color: $grid-bg;
   box-shadow: 0 8px 6px -6px $bg-shadow;
+  margin: 5px;
+  padding: 20px;
+  float: left;
+  font-size: 20px;
+//  transition: opacity .3s ease;
+//  opacity: 0;
+  height: 100px;
+  z-index: 1;
+
+  &.shown {
+    opacity: 1;
+  }
+
+  //sizes
+  &.small {
+    width: calc(570px/3);
+  }
+
+  &.medium {
+    width: calc((570px/3) * 2);
+  }
+
+  &.large {
+    width: calc(580px);
+  }
+
+  &:hover {
+    border: 2px solid white;
+    box-shadow: 0 4px 6px -6px $bg-shadow;
+    cursor: pointer;
+  }
+
+  h1 {
+    margin: 0;
+  }
 }
+
+.expanded {
+  background-color: $white;
+  height: 70%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity .3s ease;
+
+  &.shown {
+    left: 0px;
+    top: 0px;
+    opacity: 1;
+  }
+}
+
 .quote-card {
   background-color: $background;
   padding: 60px;

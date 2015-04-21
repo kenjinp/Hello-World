@@ -5,11 +5,19 @@ $font-stack: Helvetica, sans-serif;
   src: url(/font/dovah.ttf) format('ttf');
 }
 
+$itemWidth: 300px;
+$animTime: 0.5s;
+
 // Colors
 $background:    #e8e8e8;
+$oldbg:         #333;
 $bg-shadow:     #808080;
 $grid-bg:       #e93560;
 $white:            #fff;
+
+* {
+  box-sizing: border-box;
+}
 
 body {
   background-color: $background;
