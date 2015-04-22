@@ -33,6 +33,13 @@
   .back {
     background: $white;
     transform: rotateY(180deg);
+    color: $grid-bg;
+    padding: 20px;
+
+    a {
+      font-weight: bold;
+      color: $grid-bg;
+    }
 
     .return {
       color: $grid-bg;
@@ -204,8 +211,9 @@
   }
 }
 
-.dova {
+.dovah {
   font-family: dovah;
+  text-transform: uppercase;
 }
 
 .bottom {

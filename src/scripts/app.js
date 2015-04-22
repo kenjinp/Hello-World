@@ -21,6 +21,14 @@ var Hello = React.createClass({
 });
 
 var Quote = React.createClass({
+  handleClick: function() {
+    var quote = $('.quote').children('p');
+    if (quote.hasClass('dovah')) {
+      quote.removeClass('dovah');
+    } else {
+      quote.addClass('dovah');
+    }
+  },
   getQuoteFromTESQuotes: function() {
     //get data from quotes api
     var apiUrl = 'http://tesquotes.kenjin.me/api/random_quote'
@@ -41,7 +49,7 @@ var Quote = React.createClass({
   },
   render: function() {
     return (
-      <div className="grid-component large quote">
+      <div className="grid-component large quote" onClick={ this.handleClick }>
         <p>{ this.state.quote.quote }</p>
         <span>{ this.state.quote.author }</span>
       </div>
@@ -51,8 +59,9 @@ var Quote = React.createClass({
 
 var standardComponent = React.createClass({
   handleClick: function() {
-    var el = $('.' + this.props.title);
+    //var el = $('.' + this.props.title);
     //el.addClass('full');
+    //do something
   },
   componentDidMount: function() {
   },
@@ -137,6 +146,19 @@ var Grid = React.createClass({
       <div className="container">
         <div className="card">
           <div className="back side">
+            <h1>Hi There!</h1>
+            <p>You have wandered in to the about page. Awesome!</p>
+            <p>This is an ongoing experiment to play with the react framework.</p>
+              <ul>
+                <li>The over-arching goal is to create an interactive profile website for yours truely, where I can show off a little bit of what hacking is going on</li>
+                <li>The second goal is to create a procedural website that takes into account current best practices in SEO and Engineering, to learn and develop myself as a programmer.</li>
+              </ul>
+            <p>This website is experimental, expect broken things! Content will be curated here only by machine. Things you may expect to see here are things like tweets, recent github activity, ongoing projects, conversations and maybe even recent reddit comments!</p>
+              <ul>Bugs! (help point them out!)
+                <li>Massive performance problem in Firefox</li>
+                <li>links dont work on iPad (or all mobile devices?)</li>
+              </ul>
+            <p> If you were trying get in touch with me, you can try <a href="https://twitter.com/kenjinpirman">twitter</a> or <a href="mailto:kenjin.p@gmail.com">email</a></p>
             <span className="return" onClick={ this.goBack }>back</span>
           </div>
           <div className="front side grid">
