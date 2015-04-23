@@ -93,6 +93,24 @@ var Nav = React.createClass({
 });
 
 var Grid = React.createClass({
+  getRepos: function() {
+    var newComponentsList = componentsList;
+    var apiUrl = 'http://api.github.com/users/kenjinp/repos'
+    $.get(apiUrl, function(res) {
+      for (var i = 0; i < res.length; i++) {
+        var repo = res[i];
+        var newComponent = {
+          name: standardComponent,
+          size: 'small',
+          title: repo.name
+        }
+        newComponentsList.push(newComponent);
+      }
+      if (this.isMounted()) {
+        this.setState({components: newComponentsList});
+      }
+    }.bind(this));
+  },
   handleClick: function() {
     var card = $('.card');
 
@@ -124,6 +142,7 @@ var Grid = React.createClass({
     };
   },
   componentDidMount: function() {
+    this.getRepos();
     this.mouseGridShift($('.front'), false);
     $(window).keypress(function(e) {
       if (e.keyCode === 0 || e.keyCode === 32) {

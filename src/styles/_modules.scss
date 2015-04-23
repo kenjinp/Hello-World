@@ -43,6 +43,7 @@
 
     .return {
       color: $grid-bg;
+      cursor: pointer;
       position: absolute;
       left: 20px;
       bottom: 20px;
@@ -73,15 +74,15 @@
 
     //sizes
     &.small {
-      width: calc(570px/3);
+      max-width: ((600px/3)-10px);
     }
 
     &.medium {
-      width: calc((570px/3) * 2);
+      max-width: (((600px/3)*2)-10px);
     }
 
     &.large {
-      width: calc(580px);
+      max-width: 590px;
     }
 
     &.full {
@@ -229,6 +230,7 @@
   color: $grid-bg;
   left: 20px;
   bottom: 20px;
+  cursor: pointer;
 }
 
 .modal {
